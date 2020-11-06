@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.example.jokesprovider.JokesProvider;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        JokesProvider jokesProvider = new JokesProvider();
+        String theJoke = jokesProvider.tellingJokes();
+        Toast.makeText(this, theJoke, Toast.LENGTH_SHORT).show();
     }
 
 
