@@ -23,7 +23,6 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     private static MyApi myApiService = null;
     @SuppressLint("StaticFieldLeak")
     private Context context;
-    private EndpointsAsyncTask mListener = null;
 
     @Override
     protected final String doInBackground(Pair<Context, String>... params) {
@@ -49,23 +48,17 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         String name = params[0].second;
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.getJoke(name).execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            return "";
         }
-    }
-
-
-    public EndpointsAsyncTask setListener(EndpointsAsyncTask listener) {
-        this.mListener = listener;
-        return this;
     }
 
     @Override
     protected void onPostExecute(String result) {
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         Log.d("LOG", "the result is = " + result);
-        final Intent intent = new Intent(context, DisplayJokes.class);
+        Intent intent = new Intent(context, DisplayJokes.class);
         intent.putExtra(DisplayJokesFragment.JOKE_KEY, result);
         context.startActivity(intent);
     }
