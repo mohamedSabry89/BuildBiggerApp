@@ -2,7 +2,11 @@ package com.udacity.gradle.builditbigger;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.example.displayjokes.DisplayJokes;
+import android.example.displayjokes.DisplayJokesFragment;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
 
@@ -50,6 +54,8 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
             return e.getMessage();
         }
     }
+
+
     public EndpointsAsyncTask setListener(EndpointsAsyncTask listener) {
         this.mListener = listener;
         return this;
@@ -58,6 +64,10 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     @Override
     protected void onPostExecute(String result) {
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        Log.d("LOG", "the result is = " + result);
+        final Intent intent = new Intent(context, DisplayJokes.class);
+        intent.putExtra(DisplayJokesFragment.JOKE_KEY, result);
+        context.startActivity(intent);
     }
 
 }

@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class DisplayJokesFragment extends Fragment {
+
+    public static final String JOKE_KEY ="joke_key";
+
     public DisplayJokesFragment() {
     }
 
@@ -20,7 +23,7 @@ public class DisplayJokesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.display_jokes_fragment, container, false);
         Intent intent = getActivity().getIntent();
-        String jokeFromIntent = intent.getStringExtra("joke_key_1");
+        String jokeFromIntent = intent.getStringExtra(JOKE_KEY);
         TextView textView = rootView.findViewById(R.id.tv_display_joke);
         textView.setText(jokeFromIntent);
         return rootView;
