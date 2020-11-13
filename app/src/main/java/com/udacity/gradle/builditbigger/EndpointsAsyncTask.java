@@ -15,12 +15,14 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import java.io.IOException;
 
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+
     private static MyApi myApiService = null;
     @SuppressLint("StaticFieldLeak")
     private Context context;
+    private EndpointsAsyncTask mListener = null;
 
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
+    protected final String doInBackground(Pair<Context, String>... params) {
         if (myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -47,6 +49,10 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         } catch (IOException e) {
             return e.getMessage();
         }
+    }
+    public EndpointsAsyncTask setListener(EndpointsAsyncTask listener) {
+        this.mListener = listener;
+        return this;
     }
 
     @Override

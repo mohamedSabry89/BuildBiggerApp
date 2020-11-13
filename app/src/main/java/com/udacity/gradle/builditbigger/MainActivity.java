@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
 
-        Intent intent = new Intent(this, DisplayJokes.class);
+     Intent intent = new Intent(this, DisplayJokes.class);
         JokesProvider jokesProvider = new JokesProvider();
         String theJoke = jokesProvider.tellingJokes();
         intent.putExtra("joke_key_1", theJoke);
         startActivity(intent);
         Toast.makeText(this, theJoke, Toast.LENGTH_SHORT).show();
+
     }
 
 }
